@@ -1,7 +1,12 @@
+>  🔬 Security Research
 
-## 🔬 Security Research
+Independent cybersecurity research, threat verification, privacy analysis and  regulatory context  
 
-> Independent threat verification · Privacy analysis · Regulatory context
+---
+
+## 📁 Labs
+
+Independent threat verification · Privacy analysis · Regulatory context
 
 | # | Research | Type | Status |
 |---|---|---|---|
