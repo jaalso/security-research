@@ -76,11 +76,11 @@ Irish DPC in October 2024 for prior violations. Maximum potential fine: ~$11.3B
 
 ---
 
-### 01 · Case Study — Booking.com WhatsApp Phishing Triage
+### 02 · Case Study — Booking.com WhatsApp Phishing Triage
 **Short ummary:**
 <br> A relative in CH received three WhatsApp messages (French, German, and English) impersonating a hotel reservation team and demanding to "verify" a booking via a malicious link. Using a structured seven-layer CTI reading workflow plus a triage chain (Inoreader feed search → Google research → URLscan.io → Have I Been Pwned → NCSC.ch advisories), the campaign was identified as Storm-1865's "I Paid Twice" variant — a Russian-origin threat group exploiting Booking.com's April 2026 partner-portal data breach.
 
-**The phishing message
+**The Phishing Message:**
 The victim received three messages in quick succession on WhatsApp from an unknown number, in French, German, and English. All three claimed to be from "Diana, your check-in manager" at the booked hotel ("$HOTENAME"), stating that:
 - The hotel was ending its partnership with Booking.com
 - The reservation needed to be transferred to the hotel's "direct booking system"
@@ -88,7 +88,7 @@ The victim received three messages in quick succession on WhatsApp from an unkno
 - Victim would receive a full refund of the original Booking.com payment
 - To verify, victim needed to approve two push notifications or SMS codes from her bank
 
-The link was hosted at [booking.roomstation.help/reservation/4q4gP1kjm](https://booking.roomstation.help/reservation/4q4gP1kjm,)
+The link was hosted at `booking.roomstation.help/reservation/[redacted]`
 
 **Initial Red Flags:**
 | Indicator | Why it's suspicious |
@@ -157,7 +157,9 @@ Searched the Swiss National Cybersecurity Centre's archives for hotel-phishing c
 Confirms the campaign has been continuously active against Swiss residents for over two years
 and that Swiss federal authorities are aware. This is a known, persistent threat.
 
->Reported to NCSC.ch (Swiss National Cyber Security Centre) on 13 May 2026; report confirmed by NCSC analyst, who validated the attribution to the Booking.com breach data leak and acknowledged the URLscan IOC for downstream blocklist action.
+> Reported to NCSC.ch (Swiss National Cyber Security Centre) on 13 May 2026; report confirmed by NCSC analyst, who validated the attribution to the Booking.com breach data leak and acknowledged the URLscan IOC for downstream blocklist action.
+<img width="582" height="555" alt="image" src="https://github.com/user-attachments/assets/8badeddc-19da-4e66-ac64-0eb9a7393d4f" />
+
 
 **Indicators of Compromise:**
 ```
