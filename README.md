@@ -158,8 +158,8 @@ Confirms the campaign has been continuously active against Swiss residents for o
 and that Swiss federal authorities are aware. This is a known, persistent threat.
 
 > Reported to NCSC.ch (Swiss National Cyber Security Centre) on 13 May 2026; report confirmed by NCSC analyst, who validated the attribution to the Booking.com breach data leak and acknowledged the URLscan IOC for downstream blocklist action.
-<img width="582" height="555" alt="image" src="https://github.com/user-attachments/assets/8badeddc-19da-4e66-ac64-0eb9a7393d4f" />
 
+<img width="582" height="555" alt="image" src="https://github.com/user-attachments/assets/8badeddc-19da-4e66-ac64-0eb9a7393d4f" />
 
 **Indicators of Compromise:**
 ```
