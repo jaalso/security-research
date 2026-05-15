@@ -77,8 +77,8 @@ Irish DPC in October 2024 for prior violations. Maximum potential fine: ~$11.3B
 ---
 
 ### 02 · Case Study — Booking.com WhatsApp Phishing Triage
-**Short ummary:**
-<br> A relative in CH received three WhatsApp messages (French, German, and English) impersonating a hotel reservation team and demanding to "verify" a booking via a malicious link. Using a structured seven-layer CTI reading workflow plus a triage chain (Inoreader feed search → Google research → URLscan.io → Have I Been Pwned → NCSC.ch advisories), the campaign was identified as Storm-1865's "I Paid Twice" variant — a Russian-origin threat group exploiting Booking.com's April 2026 partner-portal data breach.
+**Short summary:**
+<br>A relative in CH received three WhatsApp messages (French, German, and English) impersonating a hotel reservation team and demanding to "verify" a booking via a malicious link. Using a structured seven-layer CTI reading workflow plus a triage chain (Inoreader feed search → Google research → URLscan.io → Have I Been Pwned → NCSC.ch advisories), the campaign was identified as Storm-1865's "I Paid Twice" variant — a Russian-origin threat group exploiting Booking.com's April 2026 partner-portal data breach.
 
 **The Phishing Message:**
 The victim received three messages in quick succession on WhatsApp from an unknown number, in French, German, and English. All three claimed to be from "Diana, your check-in manager" at the booked hotel ("$HOTENAME"), stating that:
@@ -102,8 +102,8 @@ The link was hosted at `booking.roomstation.help/reservation/[redacted]`
 | Exact booking details quoted | Confirms breach data is being used |
 | Urgent / time-limited framing | Forced decision pressure |
 
-**Triage Chain:**
-Phase 1: Inoreader Feed Search
+**TRIAGE CHAIN:**
+<br> Phase 1: Inoreader Feed Search
 Searched the personal CTI dashboard for Booking.com across Layer 1 (News).
 Three results from the past 5 weeks:
 - BleepingComputer — "New Booking.com data breach forces reservation PIN resets" (April 2026)
