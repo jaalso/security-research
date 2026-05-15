@@ -185,11 +185,11 @@ NCSC REF: RNR-277766 (13 May 2026)
 | Defense Evasion | Hide Infrastructure | T1665 |
 
 **References:**
-- Malwarebytes — Booking.com breach gives scammers what they need
-- Krebs on Security — Booking.com Phishers May Leave You With Reservations
-- Bridewell — The Booking.com Phishing Campaign
-- State of Surveillance — Booking.com Breach Timeline
-- NCSC.ch — Wochenrückblick 47/2023
-- NCSC.ch — Wochenrückblick 10/2024
+- [Malwarebytes — Booking.com breach gives scammers what they need](https://www.malwarebytes.com/blog/data-breaches/2026/04/booking-com-breach-gives-scammers-what-they-need-to-target-guests)
+- [Krebs on Security — Booking.com Phishers May Leave You With Reservations](https://krebsonsecurity.com/2024/11/booking-com-phishers-may-leave-you-with-reservations/)
+- [Bridewell — The Booking.com Phishing Campaign](https://www.bridewell.com/insights/blogs/detail/the-booking.com-phishing-campaign-targeting-hotels-and-customers)
+- [State of Surveillance — Booking.com Breach Timeline](https://stateofsurveillance.org/news/booking-com-data-breach-reservation-data-supply-chain-phishing-2026/)
+- [NCSC.ch — Wochenrückblick 47/2023](https://www.ncsc.admin.ch/ncsc/de/home/aktuell/im-fokus/2023/wochenrueckblick_47.html)
+- [NCSC.ch — Wochenrückblick 10/2024](https://www.ncsc.admin.ch/ncsc/de/home/aktuell/im-fokus/2024/wochenrueckblick_10.html)
 
 *Personal name and identifying details of the targeted family member have been omitted from this write-up. The case was triaged with their consent and no personal data is reproduced.*
