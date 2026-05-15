@@ -11,6 +11,7 @@ Independent threat verification · Privacy analysis · Regulatory context
 | # | Research | Type | Status |
 |---|---|---|---|
 | 01 | BrowserGate — LinkedIn Browser Fingerprinting | Threat Verification + Privacy | ✅ Complete |
+| 02 | Booking.com Storm-1865 Phishing Triage | Live CTI · Incident Prevention · NCSC Report | ✅ Complete |
 
 ---
 
@@ -71,3 +72,124 @@ real browser fingerprints — showing exactly how trackable you are right now.
 (religion, health, politics) without explicit consent. LinkedIn fined EUR 310M by
 Irish DPC in October 2024 for prior violations. Maximum potential fine: ~$11.3B
 (4% of Microsoft global turnover).
+
+
+---
+
+### 01 · Case Study — Booking.com WhatsApp Phishing Triage
+**Short ummary:**
+<br> A relative in CH received three WhatsApp messages (French, German, and English) impersonating a hotel reservation team and demanding to "verify" a booking via a malicious link. Using a structured seven-layer CTI reading workflow plus a triage chain (Inoreader feed search → Google research → URLscan.io → Have I Been Pwned → NCSC.ch advisories), the campaign was identified as Storm-1865's "I Paid Twice" variant — a Russian-origin threat group exploiting Booking.com's April 2026 partner-portal data breach.
+
+**The phishing message
+The victim received three messages in quick succession on WhatsApp from an unknown number, in French, German, and English. All three claimed to be from "Diana, your check-in manager" at the booked hotel ("$HOTENAME"), stating that:
+- The hotel was ending its partnership with Booking.com
+- The reservation needed to be transferred to the hotel's "direct booking system"
+- A 50% discount was available if she rebooked through a personal link
+- Victim would receive a full refund of the original Booking.com payment
+- To verify, victim needed to approve two push notifications or SMS codes from her bank
+
+The link was hosted at [booking.roomstation.help/reservation/4q4gP1kjm](https://booking.roomstation.help/reservation/4q4gP1kjm,)
+
+**Initial Red Flags:**
+| Indicator | Why it's suspicious |
+|---|---|
+| WhatsApp contact | Real Booking.com communication happens in-app, never via WhatsApp |
+| 50% discount lure | Classic financial-incentive social engineering |
+| Domain: `roomstation.help` | Real Booking.com domains are always `booking.com` |
+| `.help` TLD | Uncommon, cheap, popular with phishers |
+| Multilingual flood | Profiling trick — attacker doesn't know which language the victim speaks |
+| "Approve two bank requests" | The actual attack vector — both approvals debit the victim |
+| Exact booking details quoted | Confirms breach data is being used |
+| Urgent / time-limited framing | Forced decision pressure |
+
+**Triage Chain:**
+Phase 1: Inoreader Feed Search
+Searched the personal CTI dashboard for Booking.com across Layer 1 (News).
+Three results from the past 5 weeks:
+- BleepingComputer — "New Booking.com data breach forces reservation PIN resets" (April 2026)
+- SecurityWeek — "Booking.com Says Hackers Accessed User Information" (April 2026)
+- BleepingComputer — "Booking.com phishing campaign uses sneaky 'ん' character to trick you" (August 2025)
+
+Phase 2: Open-Source Research
+Targeted search for Booking.com hotel partner phishing scam 2026 50% discount link:
+-  Malwarebytes Labs — attributed the campaign to Storm-1865 (Microsoft attribution),
+using the ClickFix technique against hotel employees to deploy XWorm and VenomRAT
+- Bridewell — tracked as intrusion set BR-UNC-030 since January 2026,
+with Russian-origin code comments in the customer phishing kit
+- Krebs on Security (Nov 2024) — documented the underground phishing-as-a-service
+infrastructure and 50%-discount fraudulent travel agencies powered by compromised accounts
+State of Surveillance — campaign timeline: March 2025 → November 2025 → April 2026 breach
+-  Earlier name: "I Paid Twice" (Sekoia, November 2025).
+
+Phase 3: Have I Been Pwned Check
+| Breach | Date | Relevance |
+|---|---|---|
+| Synthient Credential Stuffing | 2025 | Email + password in active credential-stuffing lists |
+| Luxottica | 2021 | Name, DOB, phone, address — likely source of WhatsApp phone number |
+| Dropbox | 2012 | Salted hashes — low current relevance |
+
+The Luxottica breach is most operationally relevant — likely source of the phone number
+used to reach the victim on WhatsApp. Booking.com's April 2026 breach provided the
+booking-specific data (hotel name, dates).
+
+Phase 4: URLscan.io Infrastructure Analysis
+Submitted booking.roomstation.help to URLscan.io:
+<br><img width="1192" height="974" alt="image" src="https://github.com/user-attachments/assets/984f3348-24ba-4067-b812-f51f25b1a195" />
+| Property | Value | Interpretation |
+|---|---|---|
+| **Domain age at scan** | **1 minute** | **Active campaign — freshly-rotated infrastructure** |
+| Main IP | 188.114.97.3 | Cloudflare (AS13335) — hides real backend |
+| TLS certificate issuer | E8 (Let's Encrypt) | Free, throwaway cert |
+| TLS cert issued | 11 May 2026 | 2 days before victim received the message |
+| Page title | "Nur einen Moment..." | Loading-page lure — classic ClickFix pattern |
+| Page banner | "Sicherheitsüberprüfung wird durchgeführt" | Fake security check — ClickFix social engineering |
+| Cookies set | 1 | Victim tracking |
+| HTTP transactions | 18 | Multi-stage flow |
+| Redirects | 2 | Typical of phishing kits |
+| URLscan verdict | No classification | Too new — not yet on blocklists |
+| Google Safe Browsing | No classification | Same — fresh infrastructure |
+
+Phase 5: NCSC.ch Corroboration
+Searched the Swiss National Cybersecurity Centre's archives for hotel-phishing coverage:
+- Wochenrückblick 47/2023 — earlier wave of the campaign
+- Wochenrückblick 10/2024 — continued activity in the Swiss-resident victim pool
+
+Confirms the campaign has been continuously active against Swiss residents for over two years
+and that Swiss federal authorities are aware. This is a known, persistent threat.
+
+>Reported to NCSC.ch (Swiss National Cyber Security Centre) on 13 May 2026; report confirmed by NCSC analyst, who validated the attribution to the Booking.com breach data leak and acknowledged the URLscan IOC for downstream blocklist action.
+
+**Indicators of Compromise:**
+```
+DOMAIN:   booking.roomstation.help
+IP:       188.114.97.3 (Cloudflare front)
+IP:       104.18.94.41 (Cloudflare front)
+ASN:      AS13335 (CLOUDFLARENET)
+TLS CN:   Let's Encrypt E8 intermediate — issued 11 May 2026
+TTP:      ClickFix — "Sicherheitsüberprüfung wird durchgeführt"
+THEME:    Hotel partnership-termination lure + 50% discount + dual-bank approval
+GROUP:    Storm-1865 (Microsoft) / BR-UNC-030 (Bridewell)
+CAMPAIGN: "I Paid Twice" / Booking.com partner phishing
+NCSC REF: RNR-277766 (13 May 2026)
+```
+
+**MITRE ATT&CK Mapping:**
+| Tactic | Technique | ID |
+|---|---|---|
+| Initial Access | Phishing: Spearphishing via Service | T1566.003 |
+| Initial Access | Phishing: Spearphishing Link | T1566.002 |
+| Resource Development | Acquire Infrastructure: Domains | T1583.001 |
+| Resource Development | Acquire Infrastructure: Web Services | T1583.006 |
+| Resource Development | Obtain Capabilities: Code Signing Certificates | T1588.003 |
+| Credential Access | Steal Web Session Cookie | T1539 |
+| Defense Evasion | Hide Infrastructure | T1665 |
+
+**References:**
+- Malwarebytes — Booking.com breach gives scammers what they need
+- Krebs on Security — Booking.com Phishers May Leave You With Reservations
+- Bridewell — The Booking.com Phishing Campaign
+- State of Surveillance — Booking.com Breach Timeline
+- NCSC.ch — Wochenrückblick 47/2023
+- NCSC.ch — Wochenrückblick 10/2024
+
+*Personal name and identifying details of the targeted family member have been omitted from this write-up. The case was triaged with their consent and no personal data is reproduced.*
