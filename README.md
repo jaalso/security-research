@@ -222,7 +222,7 @@ granular per-application launch log most users never see.
 **The Per-Account Activity Counter**
 
 The most striking artefact is at `account.microsoft.com/privacy`:
- <img width="1048" height="564" alt="image" src="https://github.com/user-attachments/assets/f17a1d40-68e1-42c9-8d6c-cfa88d1fa21c" />
+ <img width="1000" height="564" alt="image" src="https://github.com/user-attachments/assets/f17a1d40-68e1-42c9-8d6c-cfa88d1fa21c" />
 
 | Category | Visible count |
 |---|---|
@@ -239,7 +239,7 @@ The Diagnostic Data Viewer exposes the underlying raw telemetry events, which ru
 ---
 
 **Sample of What's Tracked in the App Activity Log**
-<img width="1001" height="1014" alt="image" src="https://github.com/user-attachments/assets/a81eb594-dd30-4e48-b305-a5d20c9e8da1" />
+<img width="1000" height="1014" alt="image" src="https://github.com/user-attachments/assets/a81eb594-dd30-4e48-b305-a5d20c9e8da1" />
 
 | Application | Publisher | Logged frequency |
 |---|---|---|
@@ -380,6 +380,45 @@ Confirmed destinations:
 - Pi-hole network-level DNS filtering planned (Raspberry Pi 5 home lab)
 
 ---
+---
+
+**Pi-hole as a Network-Level Mitigation**
+
+A Pi-hole is a local DNS sinkhole, it intercepts DNS queries from every device on the
+network and blocks requests to known telemetry, advertising, and tracking domains before
+they ever leave the home network.  
+
+For Windows telemetry specifically, Pi-hole with a blocklist such as
+[hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) would block confirmed
+<br>Microsoft telemetry endpoints including:
+<br>vortex.data.microsoft.com
+<br>settings-win.data.microsoft.com
+<br>events.data.microsoft.com
+<br>arc.msn.com
+<br>oneclient.sfx.ms
+
+<br>**What Pi-hole blocks vs what it doesn't:**
+
+| Vector | Pi-hole blocks? | Notes |
+|---|---|---|
+| Diagnostic data to `vortex.data.microsoft.com` | ✅ Yes | Blocked at DNS level |
+| Event reporting to `events.data.microsoft.com` | ✅ Yes | Blocked at DNS level |
+| Bing / Start Menu search telemetry | ✅ Yes | With correct blocklist |
+| Edge browsing sync | ✅ Partial | Some endpoints may use IP directly |
+| Microsoft account activity log | ❌ No | Tied to sign-in — would break OneDrive/Store |
+| OS-level mandatory diagnostics | ❌ No | Windows retries and queues failed uploads |
+| Encrypted traffic (HTTPS/TLS) | ❌ No | Pi-hole blocks DNS, not packet content |
+
+**Practical limits:**
+
+Pi-hole is not a complete solution — Windows will retry failed telemetry uploads and some
+endpoints are hardcoded by IP rather than DNS name. However, combined with the OS-level
+reduction levers above, it meaningfully reduces the **frequency and volume** of telemetry
+leaving the network and provides a full audit log of which domains each device is
+attempting to contact.
+
+> **Status:** Pi-hole deployment planned on Raspberry Pi 5 home lab — pending setup.
+> Telemetry endpoint blocking will be validated and documented as a follow-up entry.
 
 **References**
 
