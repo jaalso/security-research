@@ -417,10 +417,14 @@ reduction levers above, it meaningfully reduces the **frequency and volume** of 
 leaving the network and provides a full audit log of which domains each device is
 attempting to contact.
 
-> **Status:** Pi-hole deployment planned on Raspberry Pi 5 home lab — pending setup.
-> Telemetry endpoint blocking will be validated and documented as a follow-up entry.
+> **Mitigation validated (June 2026):** Pi-hole v6 deployed on Raspberry Pi 5.
+> `vortex.data.microsoft.com` · `telemetry.microsoft.com` · `browser.events.data.msn.com`
+> confirmed blocked via WindowsSpyBlocker and HaGeZi blocklists.
+> See [Mitigation Chapter](#dns-level-blocking--pihole-mitigation) below.
 
-**References**
+---
+
+*References**
 
 - [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
 - [Required Windows Diagnostic Data Events and Fields](https://learn.microsoft.com/en-us/windows/privacy/required-windows-diagnostic-data-events-and-fields)
