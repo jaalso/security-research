@@ -420,7 +420,6 @@ attempting to contact.
 > **Mitigation validated (June 2026):** Pi-hole v6 deployed on Raspberry Pi 5.
 > `vortex.data.microsoft.com` · `telemetry.microsoft.com` · `browser.events.data.msn.com`
 > confirmed blocked via WindowsSpyBlocker and HaGeZi blocklists.
-> See [Mitigation Chapter](#dns-level-blocking--pihole-mitigation) below.
 
 ---
 
